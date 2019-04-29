@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.Test;
-import pages.LoginPage;
-import pages.ProductDetailsPage;
-import pages.ProductListingPage;
-import pages.ShoppingCartPage;
+import pages.*;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -27,14 +24,23 @@ public class AddToCartTest extends BaseTest{
         String quantity = "3";
         int numberOfProductsInCart = 1;
 
-        LoginPage loginPage = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
 
-        ShoppingCartPage scPage = loginPage.login("spree@example.com","spree123").selectProduct(category, productName).addProductToCart(quantity);
+        ShoppingCartPage scPage = homePage.navigateToHomepage()
+                .selectProduct(category, productName)
+                .addProductToCart(quantity);
 
         Map<String,String> productDetails = scPage.getProductDetailsInCart();
         assertTrue(productDetails.containsKey(productName), "Product"+productName+"not added to cart");
         assertEquals(productDetails.size(),numberOfProductsInCart);
         assertEquals(productDetails.get(productName),quantity);
+
+
+
+
+
+
+
 /*
         ProductListingPage plPage = new ProductListingPage(driver);
         plPage.selectProduct(category, productName);
