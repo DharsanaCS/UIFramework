@@ -18,14 +18,12 @@ import static org.testng.Assert.assertTrue;
 public class SimpleLoginTest extends BaseTest{
 
 
-    private String applicationURL = "https://spree-vapasi.herokuapp.com";
-
 
 
     @Test(groups ="smoke")
     public void testLogin(){
 
-        driver.navigate().to(applicationURL);
+
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.login("spree@example.com","spree123");

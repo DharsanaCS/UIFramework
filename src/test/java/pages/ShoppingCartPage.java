@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCartPage {
     WebDriver driver;
@@ -45,5 +47,27 @@ public class ShoppingCartPage {
         List<WebElement> cartProducts = driver.findElement(By.id("cart-detail")).findElements(By.className("line-item"));
         System.out.println("Number of products :"+ cartProducts.size());
         return cartProducts.size();
+    }
+
+    public Map<String,String> getProductDetailsInCart(){
+        List<WebElement> cartProducts = driver.findElement(By.id("cart-detail")).findElements(By.className("line-item"));
+        Map<String,String> productsList = new HashMap<String, String>();
+
+        for (Iterator<WebElement> productIterator = cartProducts.iterator(); productIterator.hasNext(); ) {
+
+            WebElement product = productIterator.next();
+            String prodDesc = product.findElement(By.className("cart-item-description")).getText();
+            String prodDescription[] = prodDesc.split("\\r?\\n");
+            String prodName = prodDescription[0];
+            System.out.println("Product name is " +prodName);
+            String quantityActual = product.findElement(By.className("cart-item-quantity")).findElement(By.tagName("input")).getAttribute("value");
+            productsList.put(prodName,quantityActual);
+
+        }
+
+        System.out.println(productsList);
+        return productsList;
+
+
     }
 }

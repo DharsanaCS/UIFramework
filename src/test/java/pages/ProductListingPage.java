@@ -12,10 +12,11 @@ public class ProductListingPage {
         this.driver = driver;
     }
 
-    public void selectProduct(String category, final String product) {
+    public ProductDetailsPage selectProduct(String category, final String product) {
 
         driver.findElement(By.linkText(category)).click();
         driver.findElement(By.xpath("//img[@alt='" + product + "']")).click();
+        return new ProductDetailsPage(driver);
 
     }
 }

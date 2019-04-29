@@ -23,11 +23,13 @@ public class BaseTest {
     public void setDriver(){
 
         String currentUsersWorkingDir = System.getProperty("user.dir");
+        String applicationURL = "https://spree-vapasi.herokuapp.com";
         System.out.println("Dir is " + currentUsersWorkingDir);
         System.setProperty("webdriver.chrome.driver",currentUsersWorkingDir+"/src/test/resources/chromedriver");
 
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.navigate().to(applicationURL);
 
 
     }

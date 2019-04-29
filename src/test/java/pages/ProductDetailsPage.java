@@ -11,12 +11,14 @@ public class ProductDetailsPage {
         this.driver = driver;
     }
 
-    public void addProductToCart(String quantity) {
+    public ShoppingCartPage addProductToCart(String quantity) {
 
 
         driver.findElement(By.id("quantity")).clear();
         driver.findElement(By.id("quantity")).sendKeys(quantity);
         driver.findElement(By.id("add-to-cart-button")).click();
+        return new ShoppingCartPage(driver);
+
     }
 
 

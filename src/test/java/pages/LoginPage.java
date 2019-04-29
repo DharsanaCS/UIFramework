@@ -11,12 +11,13 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void login(String userName, String password) {
+    public ProductListingPage login(String userName, String password) {
 
         driver.findElement(By.id("link-to-login")).click();
         driver.findElement(By.id("spree_user_email")).sendKeys(userName);
         driver.findElement(By.id("spree_user_password")).sendKeys(password);
         driver.findElement(By.name("commit")).click();
+        return new ProductListingPage(driver);
     }
 
 }
