@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.*;
 
@@ -15,13 +16,10 @@ import static org.testng.Assert.assertTrue;
 
 public class AddToCartTest extends BaseTest{
 
-    @Test
-    public void testAddToCart(){
+    @Test(dataProvider = "getProductsToAdd")
+    public void testAddToCart(String category, String productName, String quantity) {
 
 
-        String category = "Bags";
-        String productName = "Ruby on Rails Bag";
-        String quantity = "3";
         int numberOfProductsInCart = 1;
 
         HomePage homePage = new HomePage(driver);
@@ -30,32 +28,19 @@ public class AddToCartTest extends BaseTest{
                 .selectProduct(category, productName)
                 .addProductToCart(quantity);
 
-        Map<String,String> productDetails = scPage.getProductDetailsInCart();
-        assertTrue(productDetails.containsKey(productName), "Product"+productName+"not added to cart");
-        assertEquals(productDetails.size(),numberOfProductsInCart);
-        assertEquals(productDetails.get(productName),quantity);
-
-
-
-
-
-
-
-/*
-        ProductListingPage plPage = new ProductListingPage(driver);
-        plPage.selectProduct(category, productName);
-
-        ProductDetailsPage pdPage = new ProductDetailsPage(driver);
-        pdPage.addProductToCart(quantity);
-
-        ShoppingCartPage scPage = new ShoppingCartPage(driver);
-*/
-/*
-        assertTrue(scPage.isProductInCart(productName), "Product"+productName+"not added to cart");
-        assertEquals(scPage.getNumberOfProductsInCart(),numberOfProductsInCart);
-        assertEquals(scPage.getQuantityForProductIncart(productName),quantity);
-*/
+        //getProductDetailsInCart returns a map with key being the product name and value being the quantity
+        Map<String, String> productDetails = scPage.getProductDetailsInCart();
+        assertTrue(productDetails.containsKey(productName), "Product" + productName + "not added to cart");
+        assertEquals(productDetails.size(), numberOfProductsInCart);
+        assertEquals(productDetails.get(productName), quantity);
     }
-
-
+    @DataProvider(name="getProductsToAdd")
+    public Object[][] getProductsToAdd(){
+        return new Object[][]
+                {
+                        {"Bags", "Ruby on Rails Bag", "3"},
+                        {"Mugs", "Ruby on Rails Mug", "2"},
+                        {"Clothing", "Apache Baseball Jersey", "1"},
+                };
+    }
 }
