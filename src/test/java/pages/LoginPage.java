@@ -33,13 +33,6 @@ public class LoginPage {
         email_textbox.sendKeys(userName);
         password_textbox.sendKeys(password);
         submit_button.click();
-        /*
-        driver.findElement(By.id("link-to-login")).click();
-        driver.findElement(By.id("spree_user_email")).sendKeys(userName);
-        driver.findElement(By.id("spree_user_password")).sendKeys(password);
-        driver.findElement(By.name("commit")).click();
-        */
-
         return new ProductListingPage(driver);
     }
 
