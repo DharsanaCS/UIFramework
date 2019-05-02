@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.*;
@@ -21,12 +22,12 @@ public class AddToCartTest extends BaseTest{
 
 
         int numberOfProductsInCart = 1;
-
         HomePage homePage = new HomePage(driver);
-
         ShoppingCartPage scPage = homePage.navigateToHomepage()
                 .selectProduct(category, productName)
                 .addProductToCart(quantity);
+
+        Reporter.log("Added product to cart",true);
 
         //getProductDetailsInCart returns a map with key being the product name and value being the quantity
         Map<String, String> productDetails = scPage.getProductDetailsInCart();

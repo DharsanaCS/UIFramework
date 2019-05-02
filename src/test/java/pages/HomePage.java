@@ -1,6 +1,8 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
+import util.ConfigPropertyConstants;
+import util.ConfigProvider;
 
 public class HomePage {
     WebDriver driver;
@@ -10,7 +12,7 @@ public class HomePage {
     }
 
     public ProductListingPage navigateToHomepage(){
-        String applicationURL = "https://spree-vapasi.herokuapp.com";
+        String applicationURL = ConfigProvider.getInstance().getProperty(ConfigPropertyConstants.URL);
         driver.navigate().to(applicationURL);
         return new ProductListingPage(driver);
     }
